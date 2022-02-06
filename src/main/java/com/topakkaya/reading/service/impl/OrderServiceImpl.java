@@ -41,12 +41,14 @@ public class OrderServiceImpl implements IOrderService {
 
     @Override
     public void createOrder(OrderDTO orderDTO) {
+        log.info("Order is creating bookName : {}, orderAmount", orderDTO.getBookName(), orderDTO.getOrderAmount());
         Customer customer = customerService.findCustomer(orderDTO.getCustomerId());
         BookDTO bookDTO = bookService.getBookById(orderDTO.getBookId());
         decreaseStock(bookDTO.getId(), orderDTO.getOrderAmount());
         Order order = mapper.toEntity(orderDTO, customer);
         order.setTotalPurchasedAmount(bookDTO.getPrice() * orderDTO.getOrderAmount());
         orderRepository.save(order);
+        log.info("Order created Successfully OrderId : {}", order.getId());
     }
 
     @Transactional(readOnly = true)

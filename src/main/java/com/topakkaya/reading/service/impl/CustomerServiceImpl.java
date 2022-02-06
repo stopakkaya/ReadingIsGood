@@ -8,10 +8,12 @@ import com.topakkaya.reading.model.CustomerDTO;
 import com.topakkaya.reading.repository.CustomerRepository;
 import com.topakkaya.reading.service.ICustomerService;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.Objects;
 
+@Slf4j
 @Service
 @AllArgsConstructor
 public class CustomerServiceImpl implements ICustomerService {
@@ -20,12 +22,14 @@ public class CustomerServiceImpl implements ICustomerService {
 
     @Override
     public void createCustomer(CustomerDTO customerDTO) {
+        log.info("Customer is creating.. email : {}", customerDTO.getEmail());
         Customer foundCustomer = customerDao.findCustomerByEmail(customerDTO.getEmail());
         if (!Objects.isNull(foundCustomer))
             throw new CustomerAlreadyExistException();
 
         Customer customer = mapper.toCustomer(customerDTO);
         customerDao.save(customer);
+        log.info("Customer created successfully. email : {}" , customerDTO.getEmail());
     }
 
     @Override

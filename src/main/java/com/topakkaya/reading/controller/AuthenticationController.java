@@ -2,6 +2,7 @@ package com.topakkaya.reading.controller;
 
 import com.topakkaya.reading.model.AuthenticationRequest;
 import com.topakkaya.reading.util.JwtUtil;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -9,11 +10,10 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/")
+@AllArgsConstructor
 public class AuthenticationController {
-    @Autowired
-    private JwtUtil jwtUtil;
-    @Autowired
-    private AuthenticationManager authenticationManager;
+    private final JwtUtil jwtUtil;
+    private final AuthenticationManager authenticationManager;
 
     @GetMapping()
     public String welcome() {
