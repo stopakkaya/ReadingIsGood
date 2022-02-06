@@ -17,8 +17,10 @@ public class OrderMapper {
         dto.setOrderDate(order.getOrderDate());
         dto.setDeliverDate(order.getDeliverDate());
         dto.setId(order.getId());
-        dto.setBookName(order.getBookName());
         dto.setCustomerId(order.getCustomer().getId());
+        dto.setOrderAmount(order.getOrderAmount());
+        dto.setBookId(order.getBookId());
+        dto.setTotalPurchasedAmount(order.getTotalPurchasedAmount());
         return dto;
     }
 
@@ -38,6 +40,8 @@ public class OrderMapper {
         order.setCreateDate(Date.from(Instant.now()));
         order.setUpdateDate(Date.from(Instant.now()));
         order.setBookName(dto.getBookName());
+        order.setOrderAmount(dto.getOrderAmount());
+        order.setBookId(dto.getBookId());
         return order;
     }
 }

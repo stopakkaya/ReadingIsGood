@@ -12,14 +12,16 @@ import java.util.List;
 @Component
 public class BookDTOMapper {
     public BookDTO toBookDTO(Book book){
-        BookDTO response = new BookDTO();
-        response.setAuthor(book.getAuthor());
-        response.setIsbn(book.getISBN());
-        response.setName(book.getName());
-        response.setId(book.getId());
-        response.setPublishYear(book.getPublishYear());
-        response.setPublisher(book.getPublisher());
-        return response;
+        BookDTO dto = new BookDTO();
+        dto.setAuthor(book.getAuthor());
+        dto.setIsbn(book.getISBN());
+        dto.setName(book.getName());
+        dto.setId(book.getId());
+        dto.setPublishYear(book.getPublishYear());
+        dto.setPublisher(book.getPublisher());
+        dto.setStockSize(book.getStockSize());
+        dto.setPrice(book.getPrice());
+        return dto;
     }
 
     public List<BookDTO> toDtoList(List<Book> bookList){
@@ -50,6 +52,7 @@ public class BookDTOMapper {
         book.setPublishYear(bookDTO.getPublishYear());
         book.setIsAvailable(true);
         book.setPublisher(bookDTO.getPublisher());
+        book.setPrice(bookDTO.getPrice());
         return book;
     }
 }

@@ -11,4 +11,7 @@ public class OrderDTO {
     private Date deliverDate;
     private Long customerId;
     private String bookName;
+    private Long bookId;
+    private Integer orderAmount;
+    private Double totalPurchasedAmount;
 }

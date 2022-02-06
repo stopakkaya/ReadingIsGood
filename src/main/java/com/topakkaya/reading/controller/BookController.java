@@ -2,6 +2,7 @@ package com.topakkaya.reading.controller;
 
 import com.topakkaya.reading.builder.ResponseBuilder;
 import com.topakkaya.reading.enums.ReturnType;
+import com.topakkaya.reading.exception.BookAlreadyExistException;
 import com.topakkaya.reading.exception.BookNotFoundException;
 import com.topakkaya.reading.exception.IdNotValidException;
 import com.topakkaya.reading.model.BookDTO;
@@ -22,15 +23,20 @@ import java.util.Map;
 
 @RestController
 @Validated
-@RequestMapping(value = "retail/v1/book")
+@RequestMapping(value = "/retail/v1/book")
 @AllArgsConstructor
 public class BookController {
     private final IBookService bookService;
 
     @PostMapping("/create-book")
     public ResponseEntity<Map<String, Object>> createBook(@Valid @RequestBody BookDTO bookDTO){
-        bookService.createBook(bookDTO);
-        return new ResponseBuilder(HttpStatus.OK, ReturnType.SUCCESS).build();
+        try {
+            bookService.createBook(bookDTO);
+            return new ResponseBuilder(HttpStatus.OK, ReturnType.SUCCESS).build();
+        }catch (BookAlreadyExistException exception){
+            return new ResponseBuilder(exception.getHttpStatus(), ReturnType.FAIL).withError(exception.getMessage()).build();
+        }
+
     }
 
     @GetMapping("/books")

@@ -5,6 +5,7 @@ import lombok.*;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 @Data
 @NoArgsConstructor
@@ -17,13 +18,16 @@ public class BookDTO {
     private String author;
     @NotEmpty(message = ("{book.service.isbn.cannot.be.empty}"))
     private String isbn;
-    @NotEmpty(message = ("{book.service.publish.year.cannot.be.empty}"))
+    @NotNull(message = ("{book.service.publish.year.cannot.be.empty}"))
     @Min(value = 0, message = ("{book.service.publish.year.min}"))
     @Max(value = 2022, message = ("{book.service.publish.year.max}"))
     private Integer publishYear;
     @NotEmpty(message = ("{book.service.publisher.cannot.be.empty}"))
     private String publisher;
-    @NotEmpty(message = ("{book.service.stock.size.cannot.be.empty}"))
+    @NotNull(message = ("{book.service.stock.size.cannot.be.empty}"))
     @Min(value = 0, message = ("{book.service.stock.size.min.value}"))
     private Integer stockSize;
+    @NotNull(message = ("{book.service.price.cannot.be.empty}"))
+    @Min(value = 0, message = ("{book.service.price.min.value}"))
+    private Double price;
 }

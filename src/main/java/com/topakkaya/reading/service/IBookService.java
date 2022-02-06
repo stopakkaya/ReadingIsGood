@@ -14,4 +14,8 @@ public interface IBookService {
     void updateBook(BookDTO bookDTO);
 
     void updateBookStock(UpdateStockDTO stockDTO);
+
+    BookDTO getBookById(Long id);
+
+    void decreaseStock(Long bookId, int amount);
 }

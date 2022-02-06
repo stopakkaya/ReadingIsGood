@@ -21,6 +21,12 @@ public class Order {
     @Column(name = "name")
     private String bookName;
 
+    @Column(name = "book_id")
+    private Long bookId;
+
+    @Column(name = "order_amount")
+    private Integer orderAmount;
+
     @Column(name = "order_date")
     private Date orderDate;
 
@@ -32,5 +38,8 @@ public class Order {
 
     @Column(name = "update_date")
     private Date updateDate;
+
+    @Column(name = "total_purchased_amount")
+    private Double totalPurchasedAmount;
 
 }

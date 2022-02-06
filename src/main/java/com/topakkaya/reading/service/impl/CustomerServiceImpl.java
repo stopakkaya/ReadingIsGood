@@ -1,5 +1,6 @@
 package com.topakkaya.reading.service.impl;
 
+import com.topakkaya.reading.exception.CustomerNotFoundException;
 import com.topakkaya.reading.repository.CustomerRepository;
 import com.topakkaya.reading.entity.Customer;
 import com.topakkaya.reading.exception.CustomerAlreadyExistException;
@@ -30,9 +31,7 @@ public class CustomerServiceImpl implements ICustomerService {
 
     @Override
     public Customer findCustomer(Long customerId) {
-        Optional<Customer> customer = customerDao.findById(customerId);
-        if (!customer.isEmpty()) return customer.get();
-        return null;
+        return customerDao.findById(customerId).orElseThrow(CustomerNotFoundException::new);
     }
 
 }

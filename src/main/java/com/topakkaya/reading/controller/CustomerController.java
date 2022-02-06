@@ -23,13 +23,13 @@ import java.util.Map;
 @RestController
 @AllArgsConstructor
 @Validated
-@RequestMapping(value = "retail/v1/customer")
+@RequestMapping(value = "/retail/v1/customer")
 public class CustomerController {
     private final ICustomerService customerService;
     private final IOrderService orderService;
 
     @PostMapping("/create-customer")
-    public ResponseEntity<Map<String, Object>> createBook(@Valid @RequestBody CustomerDTO customerDTO){
+    public ResponseEntity<Map<String, Object>> createCustomer(@Valid @RequestBody CustomerDTO customerDTO){
         try {
             customerService.createCustomer(customerDTO);
             return new ResponseBuilder(HttpStatus.OK, ReturnType.SUCCESS).build();

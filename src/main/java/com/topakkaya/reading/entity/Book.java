@@ -29,6 +29,9 @@ public class Book{
     @Column(name = "publish_year")
     private Integer publishYear;
 
+    @Column(name = "price")
+    private Double price;
+
     @Column(name = "stock_size")
     private Integer stockSize;
 
@@ -43,5 +46,8 @@ public class Book{
 
     @Column(name = "update_date")
     private Date updateDate;
+
+    @Column(name = "version")
+    private Long version;
 
 }

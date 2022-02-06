@@ -2,11 +2,12 @@ package com.topakkaya.reading.exception;
 
 import org.springframework.http.HttpStatus;
 
-public class BookNotFoundException extends BaseBusinessException {
-    private static final HttpStatus HTTP_STATUS = HttpStatus.NOT_FOUND;
-    private static final String message = "Book not found!";
+public class OrderNotFoundException extends BaseBusinessException {
 
-    public BookNotFoundException() {
+    private static final HttpStatus HTTP_STATUS = HttpStatus.NOT_FOUND;
+    private static final String message = "Order not found!";
+
+    public OrderNotFoundException() {
         super(message, HTTP_STATUS);
     }
 }
