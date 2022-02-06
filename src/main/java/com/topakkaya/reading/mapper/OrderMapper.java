@@ -12,7 +12,7 @@ import java.util.List;
 
 @Component
 public class OrderMapper {
-    public OrderDTO toDto(Order order){
+    public OrderDTO toDto(Order order) {
         OrderDTO dto = new OrderDTO();
         dto.setOrderDate(order.getOrderDate());
         dto.setDeliverDate(order.getDeliverDate());
@@ -24,7 +24,7 @@ public class OrderMapper {
         return dto;
     }
 
-    public List<OrderDTO> toDtoList(List<Order> orderList){
+    public List<OrderDTO> toDtoList(List<Order> orderList) {
         List<OrderDTO> responseList = new ArrayList<>();
         orderList.forEach(order -> {
             responseList.add(toDto(order));
@@ -32,7 +32,7 @@ public class OrderMapper {
         return responseList;
     }
 
-    public Order toEntity(OrderDTO dto, Customer customer){
+    public Order toEntity(OrderDTO dto, Customer customer) {
         Order order = new Order();
         order.setOrderDate(dto.getOrderDate());
         order.setDeliverDate(dto.getDeliverDate());

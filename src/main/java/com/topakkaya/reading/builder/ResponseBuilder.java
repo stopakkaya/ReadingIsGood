@@ -12,7 +12,7 @@ public class ResponseBuilder {
     private final HttpStatus responseStatus;
     private final String content = "Content";
     private final String errorMessage = "error";
-    private Map<String, Object> result = new HashMap<>();
+    private final Map<String, Object> result = new HashMap<>();
 
     public ResponseBuilder(final HttpStatus responseStatus, final ReturnType returnType) {
         this.responseStatus = responseStatus;
@@ -21,26 +21,26 @@ public class ResponseBuilder {
         this.result.put("isPaginated", false);
     }
 
-    public ResponseBuilder withData(final Object data){
+    public ResponseBuilder withData(final Object data) {
         this.result.put(content, data);
         return this;
     }
 
-    public ResponseBuilder withDataList(final List<Object> dataList){
+    public ResponseBuilder withDataList(final List<Object> dataList) {
         this.result.put(content, dataList);
         return this;
     }
 
-    public ResponseEntity<Map<String, Object>> build(){
+    public ResponseEntity<Map<String, Object>> build() {
         return new ResponseEntity<>(this.result, this.responseStatus);
     }
 
-    public ResponseBuilder withError(final String error){
+    public ResponseBuilder withError(final String error) {
         this.result.put(errorMessage, error);
         return this;
     }
 
-    public ResponseBuilder withPagination(final Object object){
+    public ResponseBuilder withPagination(final Object object) {
         this.result.put("isPaginated", true);
         this.result.put(content, object);
         return this;

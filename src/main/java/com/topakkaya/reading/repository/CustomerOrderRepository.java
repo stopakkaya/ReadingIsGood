@@ -10,7 +10,7 @@ import java.util.Date;
 import java.util.List;
 
 public interface CustomerOrderRepository extends JpaRepository<Order, Long> {
-    @Query(value="SELECT * FROM customer_order WHERE customer_id = ?1 order by id", nativeQuery=true)
+    @Query(value = "SELECT * FROM customer_order WHERE customer_id = ?1 order by id", nativeQuery = true)
     Page<Order> getCustomerOrdersByCustomerId(Long customerId, Pageable pageable);
 
     List<Order> getAllByOrderDateBetween(Date startDate, Date endDate);

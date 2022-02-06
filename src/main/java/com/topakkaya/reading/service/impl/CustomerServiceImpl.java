@@ -21,7 +21,7 @@ public class CustomerServiceImpl implements ICustomerService {
     @Override
     public void createCustomer(CustomerDTO customerDTO) {
         Customer foundCustomer = customerDao.findCustomerByEmail(customerDTO.getEmail());
-        if(!Objects.isNull(foundCustomer))
+        if (!Objects.isNull(foundCustomer))
             throw new CustomerAlreadyExistException();
 
         Customer customer = mapper.toCustomer(customerDTO);

@@ -29,42 +29,42 @@ public class BookController {
     private final IBookService bookService;
 
     @PostMapping("/create-book")
-    public ResponseEntity<Map<String, Object>> createBook(@Valid @RequestBody BookDTO bookDTO){
+    public ResponseEntity<Map<String, Object>> createBook(@Valid @RequestBody BookDTO bookDTO) {
         try {
             bookService.createBook(bookDTO);
             return new ResponseBuilder(HttpStatus.OK, ReturnType.SUCCESS).build();
-        }catch (BookAlreadyExistException exception){
+        } catch (BookAlreadyExistException exception) {
             return new ResponseBuilder(exception.getHttpStatus(), ReturnType.FAIL).withError(exception.getMessage()).build();
         }
 
     }
 
     @GetMapping("/books")
-    public ResponseEntity<Map<String, Object>> getAllBooks(@PageableDefault(sort = "name", direction = Sort.Direction.ASC) Pageable pageable){
+    public ResponseEntity<Map<String, Object>> getAllBooks(@PageableDefault(sort = "name", direction = Sort.Direction.ASC) Pageable pageable) {
         Page<BookDTO> allBooks = bookService.getAllBooks(pageable);
         return new ResponseBuilder(HttpStatus.OK, ReturnType.SUCCESS).withPagination(allBooks).build();
     }
 
     @PutMapping("/update-book")
-    public ResponseEntity<Map<String, Object>> updateBook(@RequestBody BookDTO bookDTO){
+    public ResponseEntity<Map<String, Object>> updateBook(@RequestBody BookDTO bookDTO) {
         try {
             bookService.updateBook(bookDTO);
             return new ResponseBuilder(HttpStatus.OK, ReturnType.SUCCESS).build();
-        }catch (BookNotFoundException | IdNotValidException exception){
+        } catch (BookNotFoundException | IdNotValidException exception) {
             return new ResponseBuilder(exception.getHttpStatus(), ReturnType.FAIL).withError(exception.getMessage()).build();
-        } catch (Exception e){
+        } catch (Exception e) {
             return new ResponseBuilder(HttpStatus.BAD_REQUEST, ReturnType.FAIL).build();
         }
     }
 
     @PutMapping("/update-stock")
-    public ResponseEntity<Map<String, Object>> updateBookStock(@RequestBody UpdateStockDTO bookDTO){
+    public ResponseEntity<Map<String, Object>> updateBookStock(@RequestBody UpdateStockDTO bookDTO) {
         try {
             bookService.updateBookStock(bookDTO);
             return new ResponseBuilder(HttpStatus.OK, ReturnType.SUCCESS).build();
-        }catch (BookNotFoundException exception){
+        } catch (BookNotFoundException exception) {
             return new ResponseBuilder(exception.getHttpStatus(), ReturnType.FAIL).withError(exception.getMessage()).build();
-        }catch (Exception e){
+        } catch (Exception e) {
             return new ResponseBuilder(HttpStatus.BAD_REQUEST, ReturnType.FAIL).build();
         }
     }

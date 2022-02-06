@@ -1,14 +1,17 @@
 package com.topakkaya.reading.entity;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.util.Date;
 import java.util.List;
 
 @Data
 @Entity
 @Table(name = "customer")
+@AllArgsConstructor
+@NoArgsConstructor
 public class Customer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,11 +27,8 @@ public class Customer {
     @Column(name = "email")
     private String email;
 
-    @Column(name = "phone")
-    private String phone;
-
-    @Column(name = "membership_date")
-    private Date memberShipDate;
+    @Column(name = "password")
+    private String password;
 
     @OneToMany(mappedBy = "customer", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Order> customerOrders;

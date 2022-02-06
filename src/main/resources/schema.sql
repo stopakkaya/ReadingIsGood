@@ -5,8 +5,7 @@ CREATE TABLE "customer"(
     name varchar(250) NOT NULL ,
     lastname varchar(250) NOT NULL ,
     email varchar(250) NOT NULL ,
-    phone varchar(10) NOT NULL ,
-    membership_date date NOT NULL
+    password varchar(50) NOT NULL
 );
 
 DROP TABLE IF EXISTS "book";

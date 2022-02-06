@@ -29,20 +29,20 @@ public class CustomerController {
     private final IOrderService orderService;
 
     @PostMapping("/create-customer")
-    public ResponseEntity<Map<String, Object>> createCustomer(@Valid @RequestBody CustomerDTO customerDTO){
+    public ResponseEntity<Map<String, Object>> createCustomer(@Valid @RequestBody CustomerDTO customerDTO) {
         try {
             customerService.createCustomer(customerDTO);
             return new ResponseBuilder(HttpStatus.OK, ReturnType.SUCCESS).build();
-        }catch (CustomerAlreadyExistException exception){
+        } catch (CustomerAlreadyExistException exception) {
             return new ResponseBuilder(exception.getHttpStatus(), ReturnType.FAIL).withError(exception.getMessage()).build();
-        }catch (Exception e){
+        } catch (Exception e) {
             return new ResponseBuilder(HttpStatus.BAD_REQUEST, ReturnType.FAIL).build();
         }
     }
 
     @GetMapping("/customer-order/{customerId}")
     public ResponseEntity<Map<String, Object>> getCustomerOrders(@PageableDefault(sort = "name", direction = Sort.Direction.ASC) Pageable pageable,
-                                                            @PathVariable Long customerId){
+                                                                 @PathVariable Long customerId) {
         Page<OrderDTO> customerOrders = orderService.getCustomerOrders(pageable, customerId);
         return new ResponseBuilder(HttpStatus.OK, ReturnType.SUCCESS).withPagination(customerOrders).build();
     }

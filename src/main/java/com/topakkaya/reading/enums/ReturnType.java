@@ -12,11 +12,11 @@ public enum ReturnType {
         this.resultMessage = resultMessage;
     }
 
-    public int getResultCode(){
+    public int getResultCode() {
         return this.resultCode;
     }
 
-    public String getResultMessage(){
+    public String getResultMessage() {
         return this.resultMessage;
     }
 }

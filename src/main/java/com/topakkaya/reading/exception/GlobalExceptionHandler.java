@@ -33,7 +33,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         body.put("error", errors);
         body.put("returnCode", ReturnType.FAIL.getResultCode());
         body.put("resultMessage", ReturnType.FAIL.getResultMessage());
-        body.put("isPaginated" , false);
+        body.put("isPaginated", false);
 
         return new ResponseEntity<>(body, HttpStatus.BAD_REQUEST);
     }

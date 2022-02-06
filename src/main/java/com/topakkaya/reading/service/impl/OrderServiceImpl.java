@@ -36,7 +36,7 @@ public class OrderServiceImpl implements IOrderService {
         customerService.findCustomer(customerId);
         Page<Order> customerPage = orderRepository.getCustomerOrdersByCustomerId(customerId, pageable);
         List<OrderDTO> orderDTOList = mapper.toDtoList(customerPage.getContent());
-        return new PageImpl<>(orderDTOList, pageable,customerPage.getTotalElements());
+        return new PageImpl<>(orderDTOList, pageable, customerPage.getTotalElements());
     }
 
     @Override
@@ -60,13 +60,13 @@ public class OrderServiceImpl implements IOrderService {
     }
 
     @Override
-    public OrderDTO getOrderById(Long orderId){
+    public OrderDTO getOrderById(Long orderId) {
         Order order = orderRepository.findById(orderId).orElseThrow(() -> new OrderNotFoundException());
         return mapper.toDto(order);
     }
 
     @Override
-    public List<OrderDTO> getOrderByDateInterval(OrderQueryDTO queryDTO){
+    public List<OrderDTO> getOrderByDateInterval(OrderQueryDTO queryDTO) {
         List<Order> orderList = orderRepository.getAllByOrderDateBetween(queryDTO.getStartDate(), queryDTO.getEndDate());
         return mapper.toDtoList(orderList);
     }

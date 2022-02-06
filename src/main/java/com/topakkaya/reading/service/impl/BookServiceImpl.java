@@ -32,7 +32,7 @@ public class BookServiceImpl implements IBookService {
     public Page<BookDTO> getAllBooks(Pageable pageable) {
         Page<Book> allBooks = bookRepository.findAll(pageable);
         List<BookDTO> bookList = dtoMapper.toDtoList(allBooks.getContent());
-        return new PageImpl<>(bookList, pageable,allBooks.getTotalElements());
+        return new PageImpl<>(bookList, pageable, allBooks.getTotalElements());
     }
 
     @Override
@@ -44,7 +44,7 @@ public class BookServiceImpl implements IBookService {
     @Override
     public void createBook(BookDTO bookDTO) {
         Book foundBook = bookRepository.findBookByAuthorAndName(bookDTO.getAuthor(), bookDTO.getName());
-        if(!Objects.isNull(foundBook))
+        if (!Objects.isNull(foundBook))
             throw new BookAlreadyExistException();
 
         Book book = dtoMapper.toBook(bookDTO);
@@ -53,11 +53,11 @@ public class BookServiceImpl implements IBookService {
 
     @Override
     public void updateBook(BookDTO bookDTO) {
-        if(Objects.isNull(bookDTO.getId()))
+        if (Objects.isNull(bookDTO.getId()))
             throw new IdNotValidException();
 
         Optional<Book> find = bookRepository.findById(bookDTO.getId());
-        if(find.isEmpty())
+        if (find.isEmpty())
             throw new BookNotFoundException();
 
         Book book = find.get();
@@ -66,7 +66,7 @@ public class BookServiceImpl implements IBookService {
     }
 
     @Override
-    public void updateBookStock(UpdateStockDTO stockDTO){
+    public void updateBookStock(UpdateStockDTO stockDTO) {
         Book book = bookRepository.findById(stockDTO.getBookId()).orElseThrow(BookNotFoundException::new);
         book.setStockSize(stockDTO.getStockSize());
         bookRepository.save(book);
@@ -76,7 +76,7 @@ public class BookServiceImpl implements IBookService {
     @Override
     public void decreaseStock(Long bookId, int amount) {
         Book book = bookRepository.findById(bookId).orElseThrow(BookNotFoundException::new);
-        if(book.getStockSize()<amount) throw new ExceedStockSizeException();
+        if (book.getStockSize() < amount) throw new ExceedStockSizeException();
         book.setStockSize(book.getStockSize() - amount);
     }
 }

@@ -11,7 +11,7 @@ import java.util.List;
 
 @Component
 public class BookDTOMapper {
-    public BookDTO toBookDTO(Book book){
+    public BookDTO toBookDTO(Book book) {
         BookDTO dto = new BookDTO();
         dto.setAuthor(book.getAuthor());
         dto.setIsbn(book.getISBN());
@@ -24,7 +24,7 @@ public class BookDTOMapper {
         return dto;
     }
 
-    public List<BookDTO> toDtoList(List<Book> bookList){
+    public List<BookDTO> toDtoList(List<Book> bookList) {
         List<BookDTO> dtoList = new ArrayList<>();
         bookList.forEach(book -> {
             dtoList.add(toBookDTO(book));
@@ -32,14 +32,14 @@ public class BookDTOMapper {
         return dtoList;
     }
 
-    public Book toBook(BookDTO dto){
+    public Book toBook(BookDTO dto) {
         Book book = new Book();
         book.setCreateDate(Date.from(Instant.now()));
         book.setRecordDate(Date.from(Instant.now()));
         return setBookValues(book, dto);
     }
 
-    public Book toBook(Book book, BookDTO bookDTO){
+    public Book toBook(Book book, BookDTO bookDTO) {
         return setBookValues(book, bookDTO);
     }
 
