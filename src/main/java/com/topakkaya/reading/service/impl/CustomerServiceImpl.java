@@ -1,17 +1,16 @@
 package com.topakkaya.reading.service.impl;
 
-import com.topakkaya.reading.exception.CustomerNotFoundException;
-import com.topakkaya.reading.repository.CustomerRepository;
 import com.topakkaya.reading.entity.Customer;
 import com.topakkaya.reading.exception.CustomerAlreadyExistException;
+import com.topakkaya.reading.exception.CustomerNotFoundException;
 import com.topakkaya.reading.mapper.CustomerDTOMapper;
 import com.topakkaya.reading.model.CustomerDTO;
+import com.topakkaya.reading.repository.CustomerRepository;
 import com.topakkaya.reading.service.ICustomerService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.Objects;
-import java.util.Optional;
 
 @Service
 @AllArgsConstructor

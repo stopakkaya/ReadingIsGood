@@ -2,7 +2,6 @@ package com.topakkaya.reading.model;
 
 import lombok.Data;
 
-import javax.persistence.criteria.CriteriaBuilder;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 

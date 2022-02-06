@@ -1,6 +1,5 @@
 package com.topakkaya.reading.service;
 
-import com.topakkaya.reading.entity.Book;
 import com.topakkaya.reading.model.BookDTO;
 import com.topakkaya.reading.model.UpdateStockDTO;
 import org.springframework.data.domain.Page;

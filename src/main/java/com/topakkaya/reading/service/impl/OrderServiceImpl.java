@@ -2,8 +2,6 @@ package com.topakkaya.reading.service.impl;
 
 import com.topakkaya.reading.entity.Customer;
 import com.topakkaya.reading.entity.Order;
-import com.topakkaya.reading.exception.CustomerNotFoundException;
-import com.topakkaya.reading.exception.DateFormatValidationException;
 import com.topakkaya.reading.exception.OrderNotFoundException;
 import com.topakkaya.reading.mapper.OrderMapper;
 import com.topakkaya.reading.model.BookDTO;
@@ -22,12 +20,7 @@ import org.springframework.orm.ObjectOptimisticLockingFailureException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.time.format.DateTimeParseException;
-import java.util.Date;
 import java.util.List;
-import java.util.Objects;
 
 @Slf4j
 @Service
