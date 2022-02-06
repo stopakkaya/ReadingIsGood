@@ -1,4 +1,4 @@
 package com.topakkaya.reading.service;
 
-public interface StatisticService{
+public interface IStatisticService {
 }
