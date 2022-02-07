@@ -2,6 +2,7 @@ package com.topakkaya.reading.controller;
 
 import com.topakkaya.reading.builder.ResponseBuilder;
 import com.topakkaya.reading.enums.ReturnType;
+import com.topakkaya.reading.exception.BookAlreadyExistException;
 import com.topakkaya.reading.exception.CustomerAlreadyExistException;
 import com.topakkaya.reading.model.CustomerDTO;
 import com.topakkaya.reading.model.OrderDTO;
@@ -28,6 +29,12 @@ public class CustomerController {
     private final ICustomerService customerService;
     private final IOrderService orderService;
 
+    /**
+     * @author samet topakkaya
+     * @apiNote persist new customer for given parameters
+     * @param customerDTO consist customer infos
+     * @throws CustomerAlreadyExistException customer is saved before (checks by author and bookName pair)
+     */
     @PostMapping("/create-customer")
     public ResponseEntity<Map<String, Object>> createCustomer(@Valid @RequestBody CustomerDTO customerDTO) {
         try {
@@ -40,6 +47,12 @@ public class CustomerController {
         }
     }
 
+    /**
+     * @author samet topakkaya
+     * @apiNote lists customer all orders pageable
+     * @param pageable
+     * @param customerId
+     */
     @GetMapping("/customer-order/{customerId}")
     public ResponseEntity<Map<String, Object>> getCustomerOrders(@PageableDefault(sort = "name", direction = Sort.Direction.ASC) Pageable pageable,
                                                                  @PathVariable Long customerId) {

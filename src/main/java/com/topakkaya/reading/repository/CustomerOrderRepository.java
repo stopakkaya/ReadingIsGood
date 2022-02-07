@@ -14,4 +14,7 @@ public interface CustomerOrderRepository extends JpaRepository<Order, Long> {
     Page<Order> getCustomerOrdersByCustomerId(Long customerId, Pageable pageable);
 
     List<Order> getAllByOrderDateBetween(Date startDate, Date endDate);
+
+    @Query(value = "SELECT * FROM customer_order WHERE customer_id = ?1 order by order_date", nativeQuery = true)
+    List<Order> getCustomerOrdersByCustomer(Long customerId);
 }

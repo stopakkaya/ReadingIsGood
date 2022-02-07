@@ -24,8 +24,8 @@ import java.util.Objects;
 import java.util.Optional;
 
 @Slf4j
-@Service
 @AllArgsConstructor
+@Service
 public class BookServiceImpl implements IBookService {
     private final BookRepository bookRepository;
     private final BookDTOMapper dtoMapper;
@@ -73,6 +73,8 @@ public class BookServiceImpl implements IBookService {
 
     @Override
     public void updateBookStock(UpdateStockDTO stockDTO) {
+        if (Objects.isNull(stockDTO.getBookId()))
+            throw new IdNotValidException();
         log.info("Book stock updating to {} ", stockDTO.getStockSize());
         Book book = bookRepository.findById(stockDTO.getBookId()).orElseThrow(BookNotFoundException::new);
         Integer oldStockSize = book.getStockSize();
@@ -84,7 +86,7 @@ public class BookServiceImpl implements IBookService {
     @Transactional(propagation = Propagation.REQUIRES_NEW)
     @Override
     public void decreaseStock(Long bookId, int amount) {
-        log.info("Book stock decrease bookId : {}, decreaseCount", bookId, amount);
+        log.info("Book stock decrease bookId : {}, decreaseCount {}", bookId, amount);
         Book book = bookRepository.findById(bookId).orElseThrow(BookNotFoundException::new);
         if (book.getStockSize() < amount) throw new ExceedStockSizeException();
         book.setStockSize(book.getStockSize() - amount);
