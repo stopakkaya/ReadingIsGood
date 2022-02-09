@@ -99,7 +99,7 @@ public class BookServiceImplTest {
 
     @Test
     public void throwExceptionWhenBookCreateBookIsAlreadyExist() {
-        when(repository.findBookByAuthorAndName(anyString(), anyString())).thenReturn(getBook());
+        when(repository.findBookByAuthorAndNameAndPublisher(anyString(), anyString(), anyString())).thenReturn(getBook());
         assertThrows(BookAlreadyExistException.class, () -> service.createBook(getBookDTO()));
     }
 

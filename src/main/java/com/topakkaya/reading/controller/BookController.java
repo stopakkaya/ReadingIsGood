@@ -42,7 +42,6 @@ public class BookController {
         } catch (BookAlreadyExistException exception) {
             return new ResponseBuilder(exception.getHttpStatus(), ReturnType.FAIL).withError(exception.getMessage()).build();
         }
-
     }
 
     /**
