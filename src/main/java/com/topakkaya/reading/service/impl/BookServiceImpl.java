@@ -46,7 +46,7 @@ public class BookServiceImpl implements IBookService {
     @Override
     public Book createBook(BookDTO bookDTO) {
         log.info("Book {} is creating..", bookDTO.getName());
-        Book foundBook = bookRepository.findBookByAuthorAndName(bookDTO.getAuthor(), bookDTO.getName());
+        Book foundBook = bookRepository.findBookByAuthorAndNameAndPublisher(bookDTO.getAuthor(), bookDTO.getName(), bookDTO.getPublisher());
         if (!Objects.isNull(foundBook))
             throw new BookAlreadyExistException();
 

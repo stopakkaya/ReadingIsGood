@@ -121,6 +121,7 @@
 				</configuration>
 			</plugin>
         </plugins>
+		<finalName>reading-is-good</finalName>
 	</build>
 
 </project>
