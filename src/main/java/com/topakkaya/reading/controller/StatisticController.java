@@ -23,16 +23,16 @@ public class StatisticController {
     private final IStatisticService service;
 
     /**
-     * @author samet topakkaya
-     * @apiNote  lists monthly statistics of user by email address
      * @throws CustomerNotFoundException when customer is not found for given email
+     * @author samet topakkaya
+     * @apiNote lists monthly statistics of user by email address
      */
     @GetMapping("/{email}")
-    public ResponseEntity<Map<String, Object>> getStatistic(@PathVariable String email){
+    public ResponseEntity<Map<String, Object>> getStatistic(@PathVariable String email) {
         try {
             List<StatisticDTO> statistics = service.getStatistics(email);
             return new ResponseBuilder(HttpStatus.OK, ReturnType.SUCCESS).withData(statistics).build();
-        }catch (CustomerNotFoundException exception){
+        } catch (CustomerNotFoundException exception) {
             return new ResponseBuilder(exception.getHttpStatus(), ReturnType.FAIL).withError(exception.getMessage()).build();
         }
     }

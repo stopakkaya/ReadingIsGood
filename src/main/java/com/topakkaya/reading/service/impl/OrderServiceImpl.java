@@ -2,6 +2,7 @@ package com.topakkaya.reading.service.impl;
 
 import com.topakkaya.reading.entity.Customer;
 import com.topakkaya.reading.entity.Order;
+import com.topakkaya.reading.exception.CustomerNotFoundException;
 import com.topakkaya.reading.exception.OrderNotFoundException;
 import com.topakkaya.reading.mapper.OrderMapper;
 import com.topakkaya.reading.model.BookDTO;
@@ -32,7 +33,7 @@ public class OrderServiceImpl implements IOrderService {
     private final OrderMapper mapper;
 
     @Override
-    public Page<OrderDTO> getCustomerOrders(Pageable pageable, Long customerId) {
+    public Page<OrderDTO> getCustomerOrders(Pageable pageable, Long customerId) throws CustomerNotFoundException {
         customerService.findCustomer(customerId);
         Page<Order> customerPage = orderRepository.getCustomerOrdersByCustomerId(customerId, pageable);
         List<OrderDTO> orderDTOList = mapper.toDtoList(customerPage.getContent());
@@ -40,15 +41,16 @@ public class OrderServiceImpl implements IOrderService {
     }
 
     @Override
-    public void createOrder(OrderDTO orderDTO) {
-        log.info("Order is creating bookName : {}, orderAmount", orderDTO.getBookName(), orderDTO.getOrderAmount());
+    public Order createOrder(OrderDTO orderDTO) {
+        log.info("Order is creating bookName : {}, orderAmount {}", orderDTO.getBookName(), orderDTO.getOrderAmount());
         Customer customer = customerService.findCustomer(orderDTO.getCustomerId());
         BookDTO bookDTO = bookService.getBookById(orderDTO.getBookId());
         decreaseStock(bookDTO.getId(), orderDTO.getOrderAmount());
         Order order = mapper.toEntity(orderDTO, customer);
         order.setTotalPurchasedAmount(bookDTO.getPrice() * orderDTO.getOrderAmount());
-        orderRepository.save(order);
+        Order saved = orderRepository.save(order);
         log.info("Order created Successfully OrderId : {}", order.getId());
+        return saved;
     }
 
     @Transactional(readOnly = true)
@@ -63,7 +65,7 @@ public class OrderServiceImpl implements IOrderService {
 
     @Override
     public OrderDTO getOrderById(Long orderId) {
-        Order order = orderRepository.findById(orderId).orElseThrow(() -> new OrderNotFoundException());
+        Order order = orderRepository.findById(orderId).orElseThrow(OrderNotFoundException::new);
         return mapper.toDto(order);
     }
 

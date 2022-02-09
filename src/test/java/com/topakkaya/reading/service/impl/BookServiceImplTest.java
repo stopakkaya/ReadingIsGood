@@ -9,35 +9,21 @@ import com.topakkaya.reading.mapper.BookDTOMapper;
 import com.topakkaya.reading.model.BookDTO;
 import com.topakkaya.reading.model.UpdateStockDTO;
 import com.topakkaya.reading.repository.BookRepository;
-import com.topakkaya.reading.service.IBookService;
 import org.junit.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.junit.runner.RunWith;
-import org.mockito.AdditionalAnswers;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.aop.framework.AopProxyUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.context.TestConfiguration;
-import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Primary;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
-import org.springframework.test.context.junit4.SpringRunner;
 
-import java.awt.print.Pageable;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertThrows;
 import static org.mockito.Matchers.*;
-import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
@@ -77,7 +63,7 @@ public class BookServiceImplTest {
         assertEquals(bookById.getStockSize(), book.getStockSize());
     }
 
-    private BookDTO getBookDTO(){
+    private BookDTO getBookDTO() {
         return BookDTO.builder().id(1L)
                 .author("TestAuthor")
                 .isbn("isbn")
@@ -88,7 +74,7 @@ public class BookServiceImplTest {
                 .publisher("TestPublisher").build();
     }
 
-    private Book getBook(){
+    private Book getBook() {
         Book book = new Book();
         book.setStockSize(5);
         book.setPublisher("TestPublisher");
@@ -112,26 +98,26 @@ public class BookServiceImplTest {
     }
 
     @Test
-    public void throwExceptionWhenBookCreateBookIsAlreadyExist(){
+    public void throwExceptionWhenBookCreateBookIsAlreadyExist() {
         when(repository.findBookByAuthorAndName(anyString(), anyString())).thenReturn(getBook());
         assertThrows(BookAlreadyExistException.class, () -> service.createBook(getBookDTO()));
     }
 
     @Test
-    public void throwExceptionWhenBookUpdateIdIsNull(){
+    public void throwExceptionWhenBookUpdateIdIsNull() {
         assertThrows(IdNotValidException.class, () -> service.updateBook(BookDTO.builder().id(null).build()));
     }
 
     @Test
-    public void throwExceptionWhenBookUpdateBookIsNotFound(){
+    public void throwExceptionWhenBookUpdateBookIsNotFound() {
         when(repository.findById(any())).thenReturn(Optional.empty());
-        assertThrows(BookNotFoundException.class, ()->service.updateBook(BookDTO.builder().id(1L).build()));
+        assertThrows(BookNotFoundException.class, () -> service.updateBook(BookDTO.builder().id(1L).build()));
     }
 
     @Test
     public void updateBook() {
         when(repository.findById(any())).thenReturn(Optional.of(getBook()));
-        when(mapper.toBook(any(),any())).thenReturn(getBook());
+        when(mapper.toBook(any(), any())).thenReturn(getBook());
         service.updateBook(getBookDTO());
     }
 
@@ -141,7 +127,7 @@ public class BookServiceImplTest {
     }
 
     @Test
-    public void updateStockSize(){
+    public void updateStockSize() {
         when(repository.findById(any())).thenReturn(Optional.of(getBook()));
         when(repository.save(any())).thenReturn(getBook());
         Integer stockSize = service.updateBookStock(UpdateStockDTO.builder().bookId(1L).stockSize(10).build());
@@ -149,13 +135,13 @@ public class BookServiceImplTest {
     }
 
     @Test
-    public void throwsBookNotFoundExceptionDecreaseStock(){
+    public void throwsBookNotFoundExceptionDecreaseStock() {
         when(repository.findById(any())).thenReturn(Optional.empty());
         assertThrows(BookNotFoundException.class, () -> service.decreaseStock(1L, 10));
     }
 
     @Test
-    public void throwsStockSizeExceedExceptionWhenAmountGreaterThanStockSize(){
+    public void throwsStockSizeExceedExceptionWhenAmountGreaterThanStockSize() {
         when(repository.findById(any())).thenReturn(Optional.of(getBook()));
         assertThrows(ExceedStockSizeException.class, () -> service.decreaseStock(1L, 10));
     }

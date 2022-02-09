@@ -1,5 +1,6 @@
 package com.topakkaya.reading.service;
 
+import com.topakkaya.reading.entity.Order;
 import com.topakkaya.reading.model.OrderDTO;
 import com.topakkaya.reading.model.OrderQueryDTO;
 import org.springframework.data.domain.Page;
@@ -10,7 +11,7 @@ import java.util.List;
 public interface IOrderService {
     Page<OrderDTO> getCustomerOrders(Pageable pageable, Long customerId);
 
-    void createOrder(OrderDTO orderDTO);
+    Order createOrder(OrderDTO orderDTO);
 
     OrderDTO getOrderById(Long orderId);
 

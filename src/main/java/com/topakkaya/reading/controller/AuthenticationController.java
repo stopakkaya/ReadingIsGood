@@ -25,9 +25,9 @@ public class AuthenticationController {
     }
 
     /**
+     * @param request consist user email and password
      * @author samet topakkaya
      * @apiNote endpoint generates bearer token for system authorization.
-     * @param request consist user email and password
      */
 
     @PostMapping("/generate-token")

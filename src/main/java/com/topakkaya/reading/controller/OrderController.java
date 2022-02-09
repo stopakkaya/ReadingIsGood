@@ -27,12 +27,11 @@ public class OrderController {
     private final IOrderService orderService;
 
     /**
+     * @throws CustomerNotFoundException when customer is not found for given parameters
+     * @throws BookNotFoundException     when book is not found for given parameters
+     * @throws ExceedStockSizeException  when given parameter demand is greater than stock size
      * @author samet topakkaya
      * @apiNote persist new book order
-     * @param orderDTO
-     * @throws CustomerNotFoundException when customer is not found for given parameters
-     * @throws BookNotFoundException when book is not found for given parameters
-     * @throws ExceedStockSizeException when given parameter demand is greater than stock size
      */
     @PostMapping("/create-order")
     public ResponseEntity<Map<String, Object>> createOrder(@Valid @RequestBody OrderDTO orderDTO) {
@@ -45,10 +44,10 @@ public class OrderController {
     }
 
     /**
-     * @author samet topakkaya
-     * @apiNote lists order
      * @param orderId book order id info
      * @throws OrderNotFoundException when order is not found for given orderId
+     * @author samet topakkaya
+     * @apiNote lists order
      */
     @GetMapping("/{orderId}")
     public ResponseEntity<Map<String, Object>> getOrderById(@PathVariable Long orderId) {
@@ -61,9 +60,9 @@ public class OrderController {
     }
 
     /**
+     * @param queryDTO consist start date and end date
      * @author samet topakkaya
      * @apiNote lists order by date interval
-     * @param queryDTO consist start date and end date
      */
     @GetMapping("/query-order")
     public ResponseEntity<Map<String, Object>> getOrderByDateInterval(@Valid @RequestBody OrderQueryDTO queryDTO) {

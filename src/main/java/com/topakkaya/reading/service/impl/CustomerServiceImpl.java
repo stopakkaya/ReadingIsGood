@@ -17,24 +17,25 @@ import java.util.Objects;
 @Service
 @AllArgsConstructor
 public class CustomerServiceImpl implements ICustomerService {
-    private final CustomerRepository customerDao;
+    private final CustomerRepository customerRepository;
     private final CustomerDTOMapper mapper;
 
     @Override
-    public void createCustomer(CustomerDTO customerDTO) {
+    public Customer createCustomer(CustomerDTO customerDTO) {
         log.info("Customer is creating.. email : {}", customerDTO.getEmail());
-        Customer foundCustomer = customerDao.findCustomerByEmail(customerDTO.getEmail());
+        Customer foundCustomer = customerRepository.findCustomerByEmail(customerDTO.getEmail());
         if (!Objects.isNull(foundCustomer))
             throw new CustomerAlreadyExistException();
 
         Customer customer = mapper.toCustomer(customerDTO);
-        customerDao.save(customer);
-        log.info("Customer created successfully. email : {}" , customerDTO.getEmail());
+        Customer saved = customerRepository.save(customer);
+        log.info("Customer created successfully. email : {}", customerDTO.getEmail());
+        return saved;
     }
 
     @Override
     public Customer findCustomer(Long customerId) {
-        return customerDao.findById(customerId).orElseThrow(CustomerNotFoundException::new);
+        return customerRepository.findById(customerId).orElseThrow(CustomerNotFoundException::new);
     }
 
 }

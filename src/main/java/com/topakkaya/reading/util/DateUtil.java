@@ -8,14 +8,14 @@ import java.util.Date;
 @Component
 public class DateUtil {
 
-    public static String getMonthName(Date date){
+    public static String getMonthName(Date date) {
         String[] monthNames = getMonths();
         Calendar cal = Calendar.getInstance();
         cal.setTime(date);
         return monthNames[cal.get(Calendar.MONTH)];
     }
 
-    public static String[] getMonths(){
+    public static String[] getMonths() {
         return new String[]{"January", "February",
                 "March", "April", "May", "June", "July",
                 "August", "September", "October", "November",

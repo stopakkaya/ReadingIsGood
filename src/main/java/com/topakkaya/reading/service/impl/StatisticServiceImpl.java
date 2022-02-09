@@ -11,8 +11,10 @@ import com.topakkaya.reading.util.DateUtil;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.time.Instant;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 import static java.util.stream.Collectors.groupingBy;
@@ -24,23 +26,22 @@ public class StatisticServiceImpl implements IStatisticService {
     private final CustomerOrderRepository orderRepository;
 
     /**
-     * @author samet topakkaya
-     * @param customerEmail
      * @return user monthly statistic list by email - order list with month name
+     * @author samet topakkaya
      */
     @Override
     public List<StatisticDTO> getStatistics(String customerEmail) {
 
         Customer customerByEmail = customerRepository.findCustomerByEmail(customerEmail);
-        if(Objects.isNull(customerByEmail))
+        if (Objects.isNull(customerByEmail))
             throw new CustomerNotFoundException();
 
         List<Order> orders = orderRepository.getCustomerOrdersByCustomer(customerByEmail.getId());
-        if(orders.isEmpty()) return new ArrayList<>();
+        if (orders.isEmpty()) return new ArrayList<>();
 
         List<StatisticDTO> statisticDTOList = new ArrayList<>();
 
-        orders.forEach( p-> {
+        orders.forEach(p -> {
             String monthName = DateUtil.getMonthName(p.getOrderDate());
             StatisticDTO dto = new StatisticDTO(monthName, null, p.getOrderAmount(), p.getTotalPurchasedAmount());
             statisticDTOList.add(dto);
@@ -52,14 +53,14 @@ public class StatisticServiceImpl implements IStatisticService {
 
         String[] monthNames = DateUtil.getMonths();
 
-        for (String month : monthNames){
+        for (String month : monthNames) {
             List<StatisticDTO> dtoList = averageLikesPerType.get(month);
-            if(dtoList == null || dtoList.isEmpty()) continue;
+            if (dtoList == null || dtoList.isEmpty()) continue;
 
             Double totalPurchasedAmount = dtoList.stream().mapToDouble(StatisticDTO::getTotalPurchasedAmount).sum();
             Integer totalBookCount = dtoList.stream().mapToInt(StatisticDTO::getTotalBookCount).sum();
             Integer totalOrderCount = dtoList.size();
-            StatisticDTO dto = new StatisticDTO(month, totalOrderCount, totalBookCount,totalPurchasedAmount);
+            StatisticDTO dto = new StatisticDTO(month, totalOrderCount, totalBookCount, totalPurchasedAmount);
             responseList.add(dto);
         }
         return responseList;

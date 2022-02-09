@@ -2,8 +2,8 @@ package com.topakkaya.reading.controller;
 
 import com.topakkaya.reading.builder.ResponseBuilder;
 import com.topakkaya.reading.enums.ReturnType;
-import com.topakkaya.reading.exception.BookAlreadyExistException;
 import com.topakkaya.reading.exception.CustomerAlreadyExistException;
+import com.topakkaya.reading.exception.CustomerNotFoundException;
 import com.topakkaya.reading.model.CustomerDTO;
 import com.topakkaya.reading.model.OrderDTO;
 import com.topakkaya.reading.service.ICustomerService;
@@ -30,10 +30,10 @@ public class CustomerController {
     private final IOrderService orderService;
 
     /**
-     * @author samet topakkaya
-     * @apiNote persist new customer for given parameters
      * @param customerDTO consist customer infos
      * @throws CustomerAlreadyExistException customer is saved before (checks by author and bookName pair)
+     * @author samet topakkaya
+     * @apiNote persist new customer for given parameters
      */
     @PostMapping("/create-customer")
     public ResponseEntity<Map<String, Object>> createCustomer(@Valid @RequestBody CustomerDTO customerDTO) {
@@ -50,13 +50,15 @@ public class CustomerController {
     /**
      * @author samet topakkaya
      * @apiNote lists customer all orders pageable
-     * @param pageable
-     * @param customerId
      */
     @GetMapping("/customer-order/{customerId}")
     public ResponseEntity<Map<String, Object>> getCustomerOrders(@PageableDefault(sort = "name", direction = Sort.Direction.ASC) Pageable pageable,
                                                                  @PathVariable Long customerId) {
-        Page<OrderDTO> customerOrders = orderService.getCustomerOrders(pageable, customerId);
-        return new ResponseBuilder(HttpStatus.OK, ReturnType.SUCCESS).withPagination(customerOrders).build();
+        try {
+            Page<OrderDTO> customerOrders = orderService.getCustomerOrders(pageable, customerId);
+            return new ResponseBuilder(HttpStatus.OK, ReturnType.SUCCESS).withPagination(customerOrders).build();
+        } catch (CustomerNotFoundException exception) {
+            return new ResponseBuilder(exception.getHttpStatus(), ReturnType.FAIL).withError(exception.getMessage()).build();
+        }
     }
 }

@@ -4,7 +4,7 @@ import com.topakkaya.reading.entity.Customer;
 import com.topakkaya.reading.model.CustomerDTO;
 
 public interface ICustomerService {
-    void createCustomer(CustomerDTO customerDTO);
+    Customer createCustomer(CustomerDTO customerDTO);
 
     Customer findCustomer(Long customerId);
 }

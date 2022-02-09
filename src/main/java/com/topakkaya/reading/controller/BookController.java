@@ -29,10 +29,10 @@ public class BookController {
     private final IBookService bookService;
 
     /**
-     * @author samet topakkaya
-     * @apiNote persist new book for given parameters
      * @param bookDTO consist book infos
      * @throws BookAlreadyExistException when book is saved before (checks by author and bookName pair)
+     * @author samet topakkaya
+     * @apiNote persist new book for given parameters
      */
     @PostMapping("/create-book")
     public ResponseEntity<Map<String, Object>> createBook(@Valid @RequestBody BookDTO bookDTO) {
@@ -48,7 +48,6 @@ public class BookController {
     /**
      * @author samet topakkaya
      * @apiNote return all books saved
-     * @param pageable
      */
     @GetMapping("/books")
     public ResponseEntity<Map<String, Object>> getAllBooks(@PageableDefault(sort = "name", direction = Sort.Direction.ASC) Pageable pageable) {
@@ -57,11 +56,11 @@ public class BookController {
     }
 
     /**
-     * @author samet topakkaya
-     * @apiNote updates book
      * @param bookDTO consist book infos
      * @throws BookNotFoundException when book is not found for given id
-     * @throws IdNotValidException when id is null
+     * @throws IdNotValidException   when id is null
+     * @author samet topakkaya
+     * @apiNote updates book
      */
     @PutMapping("/update-book")
     public ResponseEntity<Map<String, Object>> updateBook(@RequestBody BookDTO bookDTO) {
@@ -76,11 +75,11 @@ public class BookController {
     }
 
     /**
-     * @author samet topakkaya
-     * @apiNote update specific book stock
      * @param stockDTO consist bookId and new stock value
      * @throws BookNotFoundException when book is not found for given id
-     * @throws IdNotValidException when id is null
+     * @throws IdNotValidException   when id is null
+     * @author samet topakkaya
+     * @apiNote update specific book stock
      */
     @PutMapping("/update-stock")
     public ResponseEntity<Map<String, Object>> updateBookStock(@RequestBody UpdateStockDTO stockDTO) {
