@@ -1,0 +1,382 @@
+{
+	"info": {
+		"_postman_id": "d17810f1-a3a6-4863-b625-d92ced322451",
+		"name": "RetailBook",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "CREATE-BOOK",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzYW1ldHRvcGFra2F5YUBnbWFpbC5jb20iLCJleHAiOjE2NDQ0NzkzMDksImlhdCI6MTY0NDQ0MzMwOX0.NjTycXp5eybBORLiGFHNXBmOeq9rATh84AP0q7lbHbw",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\" : \"Sokratesin Savunması\",\n    \"author\" : \"Platon\",\n    \"isbn\" : \"9786053607021\",\n    \"publishYear\" : 2012,\n    \"publisher\" : \"Türkiye İş Bankası Yayınları\",\n    \"stockSize\" : 1000,\n    \"price\" : 38\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/retail/v1/book/create-book",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"retail",
+						"v1",
+						"book",
+						"create-book"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "LIST-ALL-BOOKS",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzYW1ldHRvcGFra2F5YUBnbWFpbC5jb20iLCJleHAiOjE2NDQ0NzkzMDksImlhdCI6MTY0NDQ0MzMwOX0.NjTycXp5eybBORLiGFHNXBmOeq9rATh84AP0q7lbHbw",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8080/retail/v1/book/books?page=0&size=10",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"retail",
+						"v1",
+						"book",
+						"books"
+					],
+					"query": [
+						{
+							"key": "page",
+							"value": "0"
+						},
+						{
+							"key": "size",
+							"value": "10"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "CREATE-CUSTOMER",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzYW1ldHRvcGFra2F5YUBnbWFpbC5jb20iLCJleHAiOjE2NDQ0ODAzMzAsImlhdCI6MTY0NDQ0NDMzMH0.l_WqVXZ4Q0TEZI6z5BI_rWGeQF7m4VEJPDza8Us7wQE",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\" : \"Samet\",\n    \"lastName\" : \"Topakkaya2\",\n    \"phone\" : \"5068579264\",\n    \"email\" : \"testuser@test2.com\",\n    \"password\" : \"password123\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/retail/v1/customer/create-customer",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"retail",
+						"v1",
+						"customer",
+						"create-customer"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "CUSTOMER-ORDER",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzYW1ldHRvcGFra2F5YUBnbWFpbC5jb20iLCJleHAiOjE2NDQ0ODAzMzAsImlhdCI6MTY0NDQ0NDMzMH0.l_WqVXZ4Q0TEZI6z5BI_rWGeQF7m4VEJPDza8Us7wQE",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8080/retail/v1/customer/customer-order/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"retail",
+						"v1",
+						"customer",
+						"customer-order",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "UPDATE-BOOK",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\" : \"LOTR23\",\n    \"author\" : \"J.J.Tolkien3\",\n    \"isbn\" : \"test2\",\n    \"year\" : 1985,\n    \"publisher\" : \"Can Yayınları\",\n    \"stockSize\" : -5\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/retail/v1/book/update-book",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"retail",
+						"v1",
+						"book",
+						"update-book"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "CREATE-ORDER",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzYW1ldHRvcGFra2F5YUBnbWFpbC5jb20iLCJleHAiOjE2NDQ0NzkzMDksImlhdCI6MTY0NDQ0MzMwOX0.NjTycXp5eybBORLiGFHNXBmOeq9rATh84AP0q7lbHbw",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"orderDate\" : \"2022-10-04T13:34:00.000\",\n    \"deliverDate\" : \"2018-03-29T13:34:00.000\",\n    \"customerId\" : 1,\n    \"orderAmount\" : 12,\n    \"bookId\" : 1\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/retail/v1/order/create-order",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"retail",
+						"v1",
+						"order",
+						"create-order"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET-ORDER-BY-ID",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzYW1ldHRvcGFra2F5YUBnbWFpbC5jb20iLCJleHAiOjE2NDQ0NzkzMDksImlhdCI6MTY0NDQ0MzMwOX0.NjTycXp5eybBORLiGFHNXBmOeq9rATh84AP0q7lbHbw",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8080/retail/v1/order/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"retail",
+						"v1",
+						"order",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET-ORDER-DATE-INTERVAL",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzYW1ldHRvcGFra2F5YUBnbWFpbC5jb20iLCJleHAiOjE2NDQ0NzkzMDksImlhdCI6MTY0NDQ0MzMwOX0.NjTycXp5eybBORLiGFHNXBmOeq9rATh84AP0q7lbHbw",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"startDate\" : \"2020-03-28\",\n    \"endDate\" : \"2023-08-02\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/retail/v1/order/query-order",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"retail",
+						"v1",
+						"order",
+						"query-order"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GENERATE-TOKEN",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"email\" : \"samettopakkaya@gmail.com\",\n    \"password\" : \"password123\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/generate-token",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"generate-token"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "STATISTIC",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzYW1ldHRvcGFra2F5YUBnbWFpbC5jb20iLCJleHAiOjE2NDQ0NzkzMDksImlhdCI6MTY0NDQ0MzMwOX0.NjTycXp5eybBORLiGFHNXBmOeq9rATh84AP0q7lbHbw",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8080/retail/v1/statistic/samettopakkaya@gmail.com",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"retail",
+						"v1",
+						"statistic",
+						"samettopakkaya@gmail.com"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "UPDATE-STOCK",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzYW1ldHRvcGFra2F5YUBnbWFpbC5jb20iLCJleHAiOjE2NDQ0NzkzMDksImlhdCI6MTY0NDQ0MzMwOX0.NjTycXp5eybBORLiGFHNXBmOeq9rATh84AP0q7lbHbw",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"bookId\" : 1,\n    \"stockSize\" : 50\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/retail/v1/book/update-stock",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"retail",
+						"v1",
+						"book",
+						"update-stock"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
